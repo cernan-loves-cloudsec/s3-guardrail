@@ -1,0 +1,50 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "DenyDisablingAccountLevelBlockPublicAccess",
+      "Effect": "Deny",
+      "Action": [
+        "s3:PutAccountPublicAccessBlock",
+        "s3:DeleteAccountPublicAccessBlock"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalArn": [
+            "arn:aws:iam::*:role/OrganizationAccountAccessRole",
+            "arn:aws:iam::*:role/stacksets-exec-*"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "DenyTamperingWithTheGuardrail",
+      "Effect": "Deny",
+      "Action": [
+        "cloudtrail:StopLogging",
+        "cloudtrail:DeleteTrail",
+        "events:DeleteRule",
+        "events:DisableRule",
+        "events:RemoveTargets",
+        "iam:DeleteRole",
+        "iam:UpdateAssumeRolePolicy",
+        "iam:DeleteRolePolicy",
+        "iam:PutRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:cloudtrail:*:*:trail/*",
+        "arn:aws:events:*:*:rule/*ForwardS3Changes*",
+        "arn:aws:iam::*:role/s3-guardrail-remediation-target"
+      ],
+      "Condition": {
+        "ArnNotLike": {
+          "aws:PrincipalArn": [
+            "arn:aws:iam::*:role/OrganizationAccountAccessRole",
+            "arn:aws:iam::*:role/stacksets-exec-*"
+          ]
+        }
+      }
+    }
+  ]
+}

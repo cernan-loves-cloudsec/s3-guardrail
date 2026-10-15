@@ -1,0 +1,10 @@
+node_modules
+cdk.out
+*.js
+!cdk.json
+
+# Deployment-specific values (account IDs, org ID). See cdk.context.example.json.
+cdk.context.json
+
+# Local working files
+member.yaml
