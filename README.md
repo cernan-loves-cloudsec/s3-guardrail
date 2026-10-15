@@ -23,6 +23,12 @@ someone makes a bucket public
    delete public policy, enable Block Public Access
 ```
 
+
+
+https://github.com/user-attachments/assets/22705b47-2a50-4d43-821d-5e34f1f103f8
+
+
+
 ## What each piece is for
 
 | Piece | Account | Why it exists |
